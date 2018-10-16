@@ -13,7 +13,7 @@ import os
 
 image_size = (224, 224, 3)
 
-print("lalala")
+print("Suffle, Checkpoint")
 print("Reading csv file ...")
 
 
@@ -38,7 +38,7 @@ print("Spliting data into train, validation, test")
 
 
 
-shuffle_data = False  # shuffle the addresses before saving
+shuffle_data = True  # shuffle the addresses before saving
 path = './imgs_3m/'  # address to where you want to save
 
 # read addresses and labels from the 'train' folder
@@ -162,4 +162,4 @@ new_model.compile(loss=keras.losses.categorical_crossentropy,
 
 new_model.fit_generator(generator=training_generator,
                     validation_data=validation_generator,
-                    epochs = 60)
+                    epochs = 60, callbacks=callbacks_list, verbose=1)
