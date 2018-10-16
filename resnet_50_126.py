@@ -13,7 +13,7 @@ import os
 
 image_size = (224, 224, 3)
 
-
+print("lalala")
 print("Reading csv file ...")
 
 
