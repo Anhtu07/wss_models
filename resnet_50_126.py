@@ -24,7 +24,7 @@ csvfile = pd.read_csv('./all_products_3m_with_images.csv')
 
 cmap = {}
 pmap = {}
-j = 0
+j = 1
 for i in range(len(csvfile.ProductID)):
     pid = csvfile.ProductID[i]
     cid = csvfile.CategoryID[i]
@@ -38,7 +38,7 @@ print("Spliting data into train, validation, test")
 
 
 
-shuffle_data = True  # shuffle the addresses before saving
+shuffle_data = False  # shuffle the addresses before saving
 path = './imgs_3m/'  # address to where you want to save
 
 # read addresses and labels from the 'train' folder
@@ -51,12 +51,10 @@ if shuffle_data:
     addrs, labels = zip(*c)
 
 # Divide the hata into 60% train, 20% validation, and 20% test
-train_addrs = addrs[0:int(0.4*len(addrs))]
-train_labels = labels[0:int(0.4*len(labels))]
-val_addrs = addrs[int(0.6*len(addrs)):int(0.8*len(addrs))]
-val_labels = labels[int(0.6*len(addrs)):int(0.8*len(addrs))]
-test_addrs = addrs[int(0.8*len(addrs)):]
-test_labels = labels[int(0.8*len(labels)):]
+train_addrs = addrs[0:int(0.7*len(addrs))]
+train_labels = labels[0:int(0.7*len(labels))]
+val_addrs = addrs[int(0.7*len(addrs)):-1]
+val_labels = labels[int(0.7*len(addrs)):-1]
 
 
 print("Done")
@@ -68,7 +66,7 @@ print("Creating DataGenerator ...")
 
 class DataGenerator(keras.utils.Sequence):
     'Generates data for Keras'
-    def __init__(self, list_IDs, labels, batch_size=16, dim=(224,224), n_channels=3,
+    def __init__(self, list_IDs, labels, batch_size=20, dim=(224,224), n_channels=3,
                  n_classes=126, shuffle=False):
         'Initialization'
         self.dim = dim
