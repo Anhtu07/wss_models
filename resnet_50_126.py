@@ -13,7 +13,7 @@ import os
 
 image_size = (224, 224, 3)
 
-print("Suffle, Checkpoint")
+print("Suffle, Increase Learning Rate, Checkpoint")
 print("Reading csv file ...")
 
 
@@ -24,7 +24,7 @@ csvfile = pd.read_csv('./all_products_3m_with_images.csv')
 
 cmap = {}
 pmap = {}
-j = 1
+j = 0
 for i in range(len(csvfile.ProductID)):
     pid = csvfile.ProductID[i]
     cid = csvfile.CategoryID[i]
@@ -53,8 +53,8 @@ if shuffle_data:
 # Divide the hata into 60% train, 20% validation, and 20% test
 train_addrs = addrs[0:int(0.7*len(addrs))]
 train_labels = labels[0:int(0.7*len(labels))]
-val_addrs = addrs[int(0.7*len(addrs)):-1]
-val_labels = labels[int(0.7*len(addrs)):-1]
+val_addrs = addrs[int(0.7*len(addrs)):]
+val_labels = labels[int(0.7*len(addrs)):]
 
 
 print("Done")
@@ -134,32 +134,21 @@ validation_generator = DataGenerator(val_addrs, val_labels)
 
 from keras.applications import resnet50
 
-model = keras.applications.resnet50.ResNet50(include_top=True, weights='imagenet', input_tensor=None, pooling='max', classes=1000)
+model = keras.applications.resnet50.ResNet50(include_top=True, weights=None, input_tensor=None, pooling='max', classes=126)
 
+model.summary()
 
-from keras import Sequential
-from keras.layers import Dense
-model.layers.pop()
-
-
-
-new_model = Sequential()
-new_model.add(model)
-new_model.add(Dense(126))
-new_model.summary()
-
-
-filepath="../warehouse/weights_resnet50_126.best.hdf5"
+filepath="/warehouse/weights_resnet50_126.best.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 callbacks_list = [checkpoint]
 
 
-new_model.compile(loss=keras.losses.categorical_crossentropy,
+model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.Adam(lr=0.001),
               metrics=['accuracy'])
 
 
 
-new_model.fit_generator(generator=training_generator,
+model.fit_generator(generator=training_generator,
                     validation_data=validation_generator,
                     epochs = 60, callbacks=callbacks_list, verbose=1)
