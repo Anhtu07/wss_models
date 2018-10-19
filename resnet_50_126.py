@@ -136,8 +136,6 @@ from keras.applications import resnet50
 
 model = keras.applications.resnet50.ResNet50(include_top=True, weights=None, input_tensor=None, pooling='max', classes=126)
 
-model.summary()
-
 filepath="/warehouse/weights_resnet50_126.best.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 callbacks_list = [checkpoint]
