@@ -13,7 +13,7 @@ import os
 
 image_size = (224, 224, 3)
 
-print("Suffle, Increase Learning Rate, Checkpoint")
+print("Suffle, Decrease Learning Rate, Checkpoint")
 print("Reading csv file ...")
 
 
@@ -141,8 +141,8 @@ checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_o
 callbacks_list = [checkpoint]
 
 
-model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.Adam(lr=0.002),
+model.compile(loss=keras.losses.categorical_crossentropy,S
+              optimizer=keras.optimizers.Adam(lr=0.0005),
               metrics=['accuracy'])
 
 
