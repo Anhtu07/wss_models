@@ -142,7 +142,7 @@ callbacks_list = [checkpoint]
 
 
 model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.Adam(lr=0.001),
+              optimizer=keras.optimizers.Adam(lr=0.002),
               metrics=['accuracy'])
 
 
