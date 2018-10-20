@@ -141,7 +141,7 @@ checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_o
 callbacks_list = [checkpoint]
 
 
-model.compile(loss=keras.losses.categorical_crossentropy,S
+model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.Adam(lr=0.0005),
               metrics=['accuracy'])
 
