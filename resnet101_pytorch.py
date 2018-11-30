@@ -6,7 +6,7 @@ from torchvision import datasets, transforms, models
 from collections import OrderedDict
 import time
 
-data_dir = './images_category'
+data_dir = './images_category/images_category'
 train_transforms = transforms.Compose([transforms.RandomRotation(30),
                                        transforms.RandomResizedCrop(224),
                                        transforms.RandomHorizontalFlip(),
@@ -45,6 +45,7 @@ classifier = nn.Sequential(OrderedDict([
                           ]))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(device)
 
 model.fc = classifier
 criterion = nn.NLLLoss()
@@ -55,12 +56,8 @@ model.to(device);
 
 epochs = 30
 steps = 0
-running_loss = 0
-batch_num = 0
 for epoch in range(epochs):
     for inputs, labels in trainloader:
-        steps += 1
-        batch_num += 1
         # Move input and label tensors to the default device
         inputs, labels = inputs.to(device), labels.to(device)
 
