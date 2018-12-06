@@ -51,10 +51,10 @@ model.fc = classifier
 criterion = nn.NLLLoss()
 
 # Only train the classifier parameters, feature parameters are frozen
-optimizer = optim.Adam(model.fc.parameters(), lr=0.001, decay = 1e-4)
+optimizer = optim.Adam(model.fc.parameters(), lr=0.0005)
 model.to(device);
 
-epochs = 30
+epochs = 50
 steps = 0
 for epoch in range(epochs):
     for inputs, labels in trainloader:
@@ -93,6 +93,5 @@ for epoch in range(epochs):
           f"Test accuracy: {accuracy/len(testloader):.3f}")
     running_loss = 0
     model.train()
-
-    if accuracy/len(testloader) > 0.75:
+    if accuracy/len(testloader) > 0.6:
         torch.save(model.state_dict(), '/warehouse/weight_resnet101_pytorch.pth')
