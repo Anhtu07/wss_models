@@ -9,7 +9,7 @@ from random import shuffle
 import glob
 import os
 
-
+torch.cuda.set_device(0)
 image_size = (224, 224, 3)
 
 print("Suffle, Decrease Learning Rate, Checkpoint")

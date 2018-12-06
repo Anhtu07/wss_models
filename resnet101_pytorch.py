@@ -6,6 +6,8 @@ from torchvision import datasets, transforms, models
 from collections import OrderedDict
 import time
 
+torch.cuda.set_device(0)
+print('set device 0')
 data_dir = './images_category/images_category'
 train_transforms = transforms.Compose([transforms.RandomRotation(30),
                                        transforms.RandomResizedCrop(224),
