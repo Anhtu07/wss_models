@@ -56,6 +56,7 @@ model.to(device);
 
 epochs = 50
 steps = 0
+running_loss = 0
 for epoch in range(epochs):
     for inputs, labels in trainloader:
         # Move input and label tensors to the default device
@@ -88,7 +89,6 @@ for epoch in range(epochs):
             accuracy += torch.mean(equals.type(torch.FloatTensor)).item()
 
     print(f"Epoch {epoch+1}/{epochs}.. "
-          f"Train loss: {running_loss/print_every:.3f}.. "
           f"Test loss: {test_loss/len(testloader):.3f}.. "
           f"Test accuracy: {accuracy/len(testloader):.3f}")
     running_loss = 0
