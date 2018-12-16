@@ -40,8 +40,7 @@ classifier = nn.Sequential(OrderedDict([
                           ('fc1', nn.Linear(2048, 800)),
                           ('relu', nn.ReLU()),
                           ('dropout', nn.Dropout(0.2)),
-                          ('fc2', nn.Linear(800, 200)),
-                          ('fc3', nn.Linear(200, 121)),
+                          ('fc2', nn.Linear(800, 121)),
                           ('output', nn.LogSoftmax(dim=1))
                           ]))
 
