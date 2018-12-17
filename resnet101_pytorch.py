@@ -57,7 +57,7 @@ criterion = nn.NLLLoss()
 optimizer = optim.Adam(model.fc.parameters(), lr=0.0005)
 model.to(device);
 
-epochs = 20
+epochs = 15
 steps = 0
 running_loss = 0
 for epoch in range(epochs):
