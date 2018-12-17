@@ -40,7 +40,10 @@ classifier = nn.Sequential(OrderedDict([
                           ('fc1', nn.Linear(2048, 800)),
                           ('relu', nn.ReLU()),
                           ('dropout', nn.Dropout(0.2)),
-                          ('fc2', nn.Linear(800, 121)),
+                          ('fc2', nn.Linear(800, 300)),
+                          ('relu', nn.ReLU()),
+                          ('dropout', nn.Dropout(0.2)),
+                          ('fc3', nn.Linear(300, 121)),
                           ('output', nn.LogSoftmax(dim=1))
                           ]))
 
@@ -54,7 +57,7 @@ criterion = nn.NLLLoss()
 optimizer = optim.Adam(model.fc.parameters(), lr=0.0005)
 model.to(device);
 
-epochs = 50
+epochs = 20
 steps = 0
 running_loss = 0
 for epoch in range(epochs):
@@ -93,5 +96,5 @@ for epoch in range(epochs):
           f"Test accuracy: {accuracy/len(testloader):.3f}")
     running_loss = 0
     model.train()
-    if accuracy/len(testloader) > 0.6:
+    if accuracy/len(testloader) > 0.812:
         torch.save(model.state_dict(), '/warehouse/weight_resnet101_pytorch.pth')
