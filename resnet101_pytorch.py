@@ -54,7 +54,7 @@ model.fc = classifier
 criterion = nn.NLLLoss()
 
 # Only train the classifier parameters, feature parameters are frozen
-optimizer = optim.Adam(model.fc.parameters(), lr=0.0005)
+optimizer = optim.Adam(model.fc.parameters(), lr=0.0008)
 model.to(device);
 
 epochs = 15
